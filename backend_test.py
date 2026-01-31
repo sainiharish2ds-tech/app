@@ -129,7 +129,7 @@ class BackendTester:
             # Look for Party P1
             p1_party = None
             for party in parties:
-                if party.get('name') == 'P1':
+                if party.get('name') == 'Party P1':
                     p1_party = party
                     self.party_id = party['id']
                     break
