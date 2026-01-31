@@ -338,10 +338,12 @@ async def create_financial_transaction(transaction: FinancialTransactionCreate):
     transaction_dict["id"] = str(result.inserted_id)
     
     # Update party balance
-    balance_change = transaction.amount if transaction.payment_type == "receipt" else -transaction.amount
+    # Payment: party pays us, reduces their balance (they owe less)
+    # Receipt: we pay party, increases their balance (we owe more)
+    balance_change = -transaction.amount if transaction.payment_type == "payment" else transaction.amount
     await db.parties.update_one(
         {"_id": ObjectId(transaction.party_id)},
-        {"$inc": {"balance": -balance_change}}
+        {"$inc": {"balance": balance_change}}
     )
     
     return FinancialTransaction(**transaction_dict)
