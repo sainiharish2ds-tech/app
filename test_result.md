@@ -285,12 +285,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Order Management API"
-    - "Material Transaction API"
-    - "Financial Transaction API"
     - "Complete end-to-end order flow"
   stuck_tasks: []
-  test_all: true
+  test_all: false
   test_priority: "high_first"
 
 agent_communication:
