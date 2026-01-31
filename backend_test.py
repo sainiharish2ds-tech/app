@@ -83,8 +83,17 @@ class BackendTester:
                 if 'name' in product and 'id' in product:
                     self.product_ids[product['name']] = product['id']
             
-            expected_products = ['X', 'Y', 'Z']
+            expected_products = ['Product X', 'Product Y', 'Product Z']
             found_products = [p['name'] for p in products if p['name'] in expected_products]
+            
+            # Also store simplified names for easier access
+            for product in products:
+                if product['name'] == 'Product X':
+                    self.product_ids['X'] = product['id']
+                elif product['name'] == 'Product Y':
+                    self.product_ids['Y'] = product['id']
+                elif product['name'] == 'Product Z':
+                    self.product_ids['Z'] = product['id']
             
             if len(found_products) >= 3:
                 self.log_result("Products API", True, f"Found {len(products)} products including X, Y, Z")
